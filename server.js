@@ -46,22 +46,8 @@ app.patch("/students/:id", (req, res) => {
 
 app.delete("/students/:id", (req, res) => {
   const id = Number(req.params.id);
-
-  const index = students.findIndex(
-    s => s && s.id === id
-  );
-
-  if (index === -1) {
-    return res.status(404).json({
-      message: "Student not found"
-    });
-  }
-
-  students.splice(index, 1);
-
-  res.status(200).json({
-    message: "Student deleted successfully"
-  });
+  students = students.filter(s => s.id !== id);
+  res.json({ message: "Student deleted" });
 });
 
 app.listen(3000, () => {
